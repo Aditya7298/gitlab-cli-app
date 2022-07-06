@@ -5,6 +5,7 @@ import { wait } from "./helper.js";
 
 async function mergeProcess(res, source, target, path) {
   try {
+    await wait(100);
     log("start merge");
     log(`fetching ${source}`);
     res.write(`fetching ${source}`);
@@ -34,7 +35,7 @@ async function mergeProcess(res, source, target, path) {
   } catch (e) {
     await git(path).merge(["--abort"]);
     res.write(e.toString());
-    console.error(e);
+    log(e);
     log("End merge failure");
     res.end();
   }
